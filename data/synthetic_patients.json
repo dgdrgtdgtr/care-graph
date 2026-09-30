@@ -1,0 +1,107 @@
+[
+  {
+    "id": "PT-2026-B",
+    "name": "Eleanor Vance (Patient B)",
+    "age": 68,
+    "gender": "Female",
+    "ward": "Step-Down Ward 4B",
+    "bed": "Bed 12",
+    "primary_diagnosis": "Severe Sepsis secondary to Pyelonephritis",
+    "admit_hours_ago": 36,
+    "current_news2": 9,
+    "acuity_status": "Deteriorating",
+    "vitals": {
+      "heart_rate": 118,
+      "systolic_bp": 92,
+      "diastolic_bp": 58,
+      "mean_arterial_pressure": 69.3,
+      "resp_rate": 26,
+      "spo2": 89,
+      "temperature": 38.9
+    },
+    "labs": {
+      "lactate": 4.1,
+      "wbc": 18.4,
+      "creatinine": 2.1,
+      "platelets": 112,
+      "crp": 142
+    },
+    "trajectory_risk_horizon": {
+      "6h": 0.82,
+      "12h": 0.88,
+      "24h": 0.91,
+      "48h": 0.85
+    },
+    "required_resources": ["ICU Bed", "Norepinephrine Infusion", "High-Flow Nasal Cannula / Standby Ventilator"]
+  },
+  {
+    "id": "PT-2026-A",
+    "name": "Arthur Pendelton (Patient A)",
+    "age": 74,
+    "gender": "Male",
+    "ward": "Cardiothoracic Step-Down",
+    "bed": "Bed 04",
+    "primary_diagnosis": "Post-CABG Day 3, New-Onset Atrial Fibrillation",
+    "admit_hours_ago": 72,
+    "current_news2": 5,
+    "acuity_status": "Guarded",
+    "vitals": {
+      "heart_rate": 104,
+      "systolic_bp": 128,
+      "diastolic_bp": 82,
+      "mean_arterial_pressure": 97.3,
+      "resp_rate": 19,
+      "spo2": 96,
+      "temperature": 37.3
+    },
+    "labs": {
+      "lactate": 1.4,
+      "wbc": 11.2,
+      "creatinine": 1.1,
+      "platelets": 195,
+      "crp": 48
+    },
+    "trajectory_risk_horizon": {
+      "6h": 0.25,
+      "12h": 0.20,
+      "24h": 0.15,
+      "48h": 0.10
+    },
+    "required_resources": ["Telemetry Bed (Ward Step-Down Candidate)"]
+  },
+  {
+    "id": "PT-2026-C",
+    "name": "Marcus Brody (Patient C)",
+    "age": 59,
+    "gender": "Male",
+    "ward": "Medical ICU",
+    "bed": "ICU Bed 03",
+    "primary_diagnosis": "Acute Respiratory Distress Syndrome (ARDS)",
+    "admit_hours_ago": 48,
+    "current_news2": 11,
+    "acuity_status": "Critical",
+    "vitals": {
+      "heart_rate": 122,
+      "systolic_bp": 102,
+      "diastolic_bp": 64,
+      "mean_arterial_pressure": 76.6,
+      "resp_rate": 32,
+      "spo2": 86,
+      "temperature": 38.4
+    },
+    "labs": {
+      "lactate": 3.6,
+      "wbc": 22.1,
+      "creatinine": 1.8,
+      "platelets": 145,
+      "crp": 210
+    },
+    "trajectory_risk_horizon": {
+      "6h": 0.92,
+      "12h": 0.94,
+      "24h": 0.91,
+      "48h": 0.83
+    },
+    "required_resources": ["Mechanical Invasive Ventilator", "1:1 Dedicated Nurse", "ECMO Standby"]
+  }
+]

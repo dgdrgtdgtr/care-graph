@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+__pycache__/
+
+# Upload scripts (may contain tokens)
+upload_to_github.ps1
+*.py[cod]
+*$py.class
+.env
+.env.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

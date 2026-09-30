@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareGraph — AI Clinical Risk & Hospital Resource Digital Twin</title>
+  <meta name="description" content="Uncertainty-aware AI hospital digital twin combining patient clinical trajectories with macro operational capacity. Observe, Predict, Explain, Simulate, Optimize.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CareGraph Master Stylesheet -->
+  <link rel="stylesheet" href="css/caregraph.css">
+</head>
+<body>
+
+  <!-- Top Navigation & Brand Header -->
+  <header class="topbar">
+    <div class="brand-section">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-title">CareGraph</h1>
+        <p class="brand-subtitle">AI Clinical Risk & Hospital Resource Digital Twin • VJ Hackathon 2026</p>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="telemetry-status">
+        <span class="pulse-dot"></span>
+        <span>TWIN ACTIVE • 232 BEDS TRACKED</span>
+      </div>
+      <button id="btn-open-judge-tour" class="btn-judge-tour" title="Launch guided 5-step walkthrough based on hackathon criteria">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>Judge Walkthrough Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation View Tabs -->
+  <nav class="nav-tabs-wrapper" aria-label="Dashboard Views">
+    <button class="nav-tab active" data-view="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Hospital Twin Overview</span>
+    </button>
+    <button class="nav-tab" data-view="trajectory">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span>Patient Trajectories & EWS</span>
+    </button>
+    <button class="nav-tab" data-view="xai">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>Explainable AI (XAI)</span>
+    </button>
+    <button class="nav-tab" data-view="graph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span>Clinical Knowledge Graph</span>
+    </button>
+    <button class="nav-tab" data-view="simulator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+      <span>Counterfactual Simulator</span>
+    </button>
+    <button class="nav-tab" data-view="optimizer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Resource Optimizer</span>
+    </button>
+  </nav>
+
+  <!-- Main Content Layout -->
+  <main class="main-content">
+
+    <!-- VIEW 1: HOSPITAL DIGITAL TWIN OVERVIEW -->
+    <section id="view-overview" class="view-section">
+      <!-- High-Level Macro Metric Cards -->
+      <div class="grid-cols-4">
+        <div class="glass-card stat-box">
+          <div class="stat-label">Total Bed Occupancy</div>
+          <div class="stat-value">203 <span class="stat-unit">/ 232 (87.5%)</span></div>
+          <div class="stat-change change-up">▲ +4.2% demand vs 24h ago</div>
+        </div>
+        <div class="glass-card stat-box">
+          <div class="stat-label">ICU Critical Occupancy</div>
+          <div class="stat-value" style="color: #f87171;">21 <span class="stat-unit">/ 24 (87.5%)</span></div>
+          <div class="stat-change change-up">⚡ High Pressure: 3 beds free</div>
+        </div>
+        <div class="glass-card stat-box">
+          <div class="stat-label">ED Triage Queue</div>
+          <div class="stat-value" style="color: #fbbf24;">14 <span class="stat-unit">patients</span></div>
+          <div class="stat-change">Avg Door-to-Doctor: 48 min</div>
+        </div>
+        <div class="glass-card stat-box">
+          <div class="stat-label">Ventilator Fleet Fleet</div>
+          <div class="stat-value" style="color: #38bdf8;">26 <span class="stat-unit">/ 36 deployed</span></div>
+          <div class="stat-change change-down">✓ 10 units in central reserve</div>
+        </div>
+      </div>
+
+      <!-- Floor & Unit Census Breakdown -->
+      <div class="grid-cols-2-1">
+        <div class="glass-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Unit Operational Capacity & Staffing
+              </h2>
+              <p class="card-subtitle">Real-time bed census, nurse-to-patient ratios, and ventilator allocations</p>
+            </div>
+            <span class="badge badge-critical">Active Code 1</span>
+          </div>
+
+          <div id="hospital-units-list">
+            <!-- Populated dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- Operations Alert & Deterioration Watchlist -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Early Warning Alerts
+            </h2>
+            <span class="badge badge-obs">Live Feed</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding: 12px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25);">
+              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #f87171; font-size: 13px;">
+                <span>Eleanor Vance (Patient B)</span>
+                <span class="badge badge-critical">Deteriorating</span>
+              </div>
+              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Step-Down Bed 12 • Predicted ICU transfer probability <b>82% within 6h</b> due to rising lactate (4.1 mmol/L) & hypoxemia.</p>
+            </div>
+
+            <div style="padding: 12px; border-radius: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25);">
+              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #fbbf24; font-size: 13px;">
+                <span>Marcus Brody (Patient C)</span>
+                <span class="badge badge-critical">Critical</span>
+              </div>
+              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">ICU Bed 03 • Severe ARDS • 1:1 dedicated nurse requirement. PaO2/FiO2 145 on PEEP 14.</p>
+            </div>
+
+            <div style="padding: 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);">
+              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #34d399; font-size: 13px;">
+                <span>Arthur Pendelton (Patient A)</span>
+                <span class="badge badge-stable">Stabilizing</span>
+              </div>
+              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Cardiothoracic Step-Down Bed 04 • NEWS2 dropping to 5 • Eligible for step-down transfer to recover ICU buffer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: PATIENT TRAJECTORIES & EARLY WARNING SYSTEM -->
+    <section id="view-trajectory" class="view-section" style="display: none;">
+      <!-- Patient Selector Strip -->
+      <div class="patient-selector-bar" id="patient-chip-container">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Selected Patient Header Banner -->
+      <div class="glass-card" style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+              <h2 id="patient-banner-name" style="font-size: 20px; font-weight: 800; color: #ffffff;">Eleanor Vance (Patient B)</h2>
+              <span id="patient-banner-news2" class="badge badge-critical">NEWS2 Score: 9</span>
+            </div>
+            <p id="patient-banner-meta" style="font-size: 12px; color: var(--text-muted);">68yo Female • Step-Down Ward 4B • Bed 12 • Admitted: 36 hrs ago</p>
+            <p id="patient-banner-diagnosis" style="font-size: 13px; color: #38bdf8; font-weight: 600; margin-top: 4px;">Severe Sepsis secondary to Pyelonephritis</p>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <div class="stat-box" style="padding: 10px 16px;">
+              <div class="stat-label">6h Risk Horizon</div>
+              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">82%</div>
+            </div>
+            <div class="stat-box" style="padding: 10px 16px;">
+              <div class="stat-label">12h Risk Horizon</div>
+              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">88%</div>
+            </div>
+            <div class="stat-box" style="padding: 10px 16px;">
+              <div class="stat-label">24h Risk Horizon</div>
+              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">91%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trajectory Chart with Conformal Bounds -->
+      <div class="glass-card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Temporal Deterioration Trajectory & Conformal Uncertainty Bounds
+            </h3>
+            <p class="card-subtitle">Connects past 24h vitals trend with multi-horizon risk forecast (6h, 12h, 24h, 48h) + 90% confidence intervals</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span class="badge badge-obs">Observed Vitals</span>
+            <span class="badge badge-pred">Temporal AI Forecast</span>
+          </div>
+        </div>
+
+        <div id="trajectory-chart-container" class="chart-container"></div>
+      </div>
+
+      <!-- Vitals & Labs Telemetry Grid -->
+      <div class="grid-cols-2">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Current Longitudinal Vitals</h3>
+            <span class="badge badge-obs">Observed Ground Truth</span>
+          </div>
+          <table class="telemetry-table">
+            <thead>
+              <tr><th>Vital Sign</th><th>Current Measurement</th><th>Clinical Interpretation</th></tr>
+            </thead>
+            <tbody id="patient-vitals-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Diagnostic Laboratory Panel</h3>
+            <span class="badge badge-obs">Validated Lab Results</span>
+          </div>
+          <table class="telemetry-table">
+            <thead>
+              <tr><th>Biomarker</th><th>Value</th><th>Status & Reference Range</th></tr>
+            </thead>
+            <tbody id="patient-labs-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: EXPLAINABLE AI (XAI) -->
+    <section id="view-xai" class="view-section" style="display: none;">
+      <div class="grid-cols-1-2">
+        <!-- Rationale & Methodology -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Explainability Pipeline</h3>
+            <span class="badge badge-pred">SHAP / Temporal Attributions</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+            CareGraph ensures transparent clinical machine learning. Rather than serving black-box predictions, our temporal attention models isolate specific physiological and laboratory inflections that drive predicted deterioration trajectories.
+          </p>
+
+          <div style="padding: 14px; border-radius: 8px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); margin-bottom: 14px;">
+            <div style="font-weight: 700; color: #38bdf8; font-size: 12px; margin-bottom: 4px;">OBSERVED VS PREDICTED SEPARATION</div>
+            <p style="font-size: 11px; color: #cbd5e1;">Model-derived feature contributions reflect statistical associations across time-series sequences. They are clearly distinguished from observed clinical records.</p>
+          </div>
+
+          <div style="font-size: 12px; color: var(--text-dim);">
+            Algorithm: <b>Temporal Gradient SHAP + Conformal Prediction</b><br>
+            Baseline: eICU / MIMIC-IV cohort distribution
+          </div>
+        </div>
+
+        <!-- Waterfall / Feature Impact Cards -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Feature Attribution Waterfall for Selected Patient</h3>
+            <span class="badge badge-critical">Active Risk Drivers</span>
+          </div>
+          <div id="xai-attribution-list" class="xai-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: CLINICAL KNOWLEDGE GRAPH -->
+    <section id="view-graph" class="view-section" style="display: none;">
+      <div class="grid-cols-2-1">
+        <div class="glass-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Heterogeneous Clinical Knowledge Graph</h3>
+              <p class="card-subtitle">Connects: Patient ➔ Condition ➔ Lab ➔ Medication ➔ Risk Factor ➔ Complication ➔ Required Resource</p>
+            </div>
+            <span class="badge badge-obs">Drag & Inspect Nodes</span>
+          </div>
+
+          <div id="kg-canvas-container" class="kg-container"></div>
+
+          <div class="kg-legend">
+            <div class="legend-item"><span class="legend-dot" style="background: #38bdf8;"></span> Patient</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #ec4899;"></span> Condition</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #eab308;"></span> Lab Biomarker</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #a855f7;"></span> Medication</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #f97316;"></span> Risk Factor</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Complication</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Hospital Resource</div>
+          </div>
+        </div>
+
+        <!-- Node Inspector Sidebar -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Entity Inspector</h3>
+            <span class="badge badge-pred">Semantic Linkage</span>
+          </div>
+          <div id="kg-node-details" style="padding: 14px; border-radius: 8px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
+            <div style="font-size: 13px; color: var(--text-muted);">Click on any graph node to inspect its ontology, clinical relationships, and downstream hospital resource demand.</div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div style="font-weight: 700; font-size: 12px; color: var(--text-main); margin-bottom: 8px;">Clinical Knowledge Reasoning</div>
+            <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+              By formalizing patient states as a knowledge graph, CareGraph bridges the semantic gap between a lab abnormality (e.g., Lactate &gt; 4.0) and the physical hospital asset (ICU resuscitation bay + continuous vasopressor titration).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: COUNTERFACTUAL HOSPITAL SIMULATOR (THE WOW FEATURE) -->
+    <section id="view-simulator" class="view-section" style="display: none;">
+      <!-- Simulation Controls Bar -->
+      <div class="glass-card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title" style="font-size: 16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              Counterfactual "What-If" Hospital Simulator
+            </h2>
+            <p class="card-subtitle">Change the world ➔ Simulate response ➔ Detect bottlenecks ➔ Prevent crisis before acting</p>
+          </div>
+          <span class="badge badge-sim">Discrete-Event Engine</span>
+        </div>
+
+        <!-- Presets -->
+        <div class="preset-buttons">
+          <button class="btn-preset active" data-preset="ed-surge">Scenario 1: +10 Emergency Surge</button>
+          <button class="btn-preset" data-preset="icu-drop">Scenario 2: ICU Capacity Falls 15%</button>
+          <button class="btn-preset" data-preset="combined">Scenario 3: Combined Surge & Capacity Shock</button>
+          <button class="btn-preset" data-preset="reschedule">Scenario 4: Reschedule Elective Admissions</button>
+        </div>
+
+        <!-- Sliders -->
+        <div class="grid-cols-4">
+          <div class="slider-group">
+            <div class="slider-header">
+              <span>Emergency Arrivals Surge</span>
+              <span id="val-arrivals" class="slider-val">+10 Patients</span>
+            </div>
+            <input type="range" id="slider-arrivals" class="cyber-slider" min="0" max="30" value="10" step="1">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <span>ICU Capacity Delta</span>
+              <span id="val-capacity" class="slider-val">-15%</span>
+            </div>
+            <input type="range" id="slider-capacity" class="cyber-slider" min="-40" max="30" value="-15" step="5">
+          </div>
+
+          <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">
+              <input type="checkbox" id="check-electives" style="width: 16px; height: 16px; accent-color: var(--accent-cyan);">
+              <span>Reschedule Elective Surgeries</span>
+            </label>
+            <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Frees 3 recovery beds within 6h</span>
+          </div>
+
+          <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Simulation Horizon</div>
+            <div style="font-size: 16px; font-weight: 700; color: #ffffff; font-family: var(--font-mono);">24 Hours Dynamic</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulation Output Chart & Metrics -->
+      <div class="grid-cols-2-1">
+        <div class="glass-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Simulated Demand vs Capacity Ceiling Timeline</h3>
+              <p class="card-subtitle">Comparing Baseline ICU Occupancy (dashed gray) with Counterfactual Demand (glowing curve)</p>
+            </div>
+            <span id="sim-bottleneck-badge" class="badge badge-critical">BOTTLENECK DETECTED</span>
+          </div>
+
+          <div id="simulation-chart-container" class="chart-container"></div>
+        </div>
+
+        <!-- Simulation Findings -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Scenario Impact Summary</h3>
+            <span class="badge badge-sim">What-If Discovery</span>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <div class="stat-label">Peak ICU Demand</div>
+            <div id="sim-peak-val" class="stat-value" style="color: #f87171;">25 / 20</div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <div class="stat-label">Projected Critical Bed Deficit</div>
+            <div id="sim-deficit-val" class="stat-value" style="color: #ef4444;">5 Beds</div>
+          </div>
+
+          <div style="padding: 12px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); margin-bottom: 16px;">
+            <div style="font-weight: 700; font-size: 12px; color: #f87171; margin-bottom: 4px;">CRITICAL SYSTEM STRESS</div>
+            <p id="sim-summary-text" style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+              Simulated demand exceeds operational limit at T+4.5h. 5 patients face diversion or delayed critical resuscitation without proactive reallocation.
+            </p>
+          </div>
+
+          <button onclick="document.querySelector('[data-view=\'optimizer\']').click()" class="btn-primary" style="width: 100%; text-align: center;">
+            Send to Resource Optimizer ▶
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: MULTI-OBJECTIVE RESOURCE OPTIMIZER -->
+    <section id="view-optimizer" class="view-section" style="display: none;">
+      <!-- Optimization Header -->
+      <div class="glass-card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title" style="font-size: 16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Multi-Objective Constrained Resource Optimizer
+            </h2>
+            <p class="card-subtitle">Mixed-Integer Linear Programming (MILP) solving bed triage, nurse rosters, and equipment allocation</p>
+          </div>
+          <button id="btn-run-optimizer" class="btn-primary">
+            <span>Re-Solve Allocation</span>
+          </button>
+        </div>
+
+        <div class="grid-cols-4" style="margin-bottom: 0;">
+          <div class="stat-box">
+            <div class="stat-label">Solver Status</div>
+            <div style="font-size: 16px; font-weight: 800; color: #34d399; font-family: var(--font-mono);">OPTIMAL FEASIBLE</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Recovered ICU Capacity</div>
+            <div id="opt-recovered-beds" class="stat-value" style="color: #38bdf8;">+4 Beds</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Risk Overload Mitigation</div>
+            <div id="opt-risk-reduction" class="stat-value" style="color: #34d399;">75.5%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Clinical Safety Bounds</div>
+            <div style="font-size: 16px; font-weight: 800; color: #34d399; font-family: var(--font-mono);">100% Compliant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actionable Plans Grid -->
+      <div class="grid-cols-2-1">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Prioritized Decision Support Recommendations</h3>
+            <span class="badge badge-stable">Constrained Actions</span>
+          </div>
+
+          <div id="optimizer-actions-list">
+            <!-- Populated dynamically by optimizer.js -->
+          </div>
+        </div>
+
+        <!-- Constraints Verification -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Clinical Safety Constraints</h3>
+            <span class="badge badge-obs">Hard Bounds</span>
+          </div>
+
+          <ul id="opt-constraints-list" style="list-style: none; font-size: 12px; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+            <!-- Populated by JS -->
+          </ul>
+
+          <div style="padding: 12px; border-radius: 8px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2);">
+            <div style="font-weight: 700; font-size: 11px; color: #a5b4fc; margin-bottom: 4px;">OPERATIONAL GOVERNANCE</div>
+            <p style="font-size: 11px; color: #94a3b8; line-height: 1.5;">
+              The CareGraph optimizer presents candidate allocations with uncertainty estimations. Bed transfers and surgical postponements require clinical sign-off from the attending medical director.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Judge Walkthrough Modal (5-Step Hackathon Demonstration) -->
+  <div id="judge-modal" class="judge-modal-overlay">
+    <div class="judge-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="brand-logo" style="width: 28px; height: 28px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">CareGraph Judge Interactive Tour</h3>
+        </div>
+        <button id="judge-btn-close" style="background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="judge-step-indicator">
+        <div class="step-circle active">1</div>
+        <div class="step-circle">2</div>
+        <div class="step-circle">3</div>
+        <div class="step-circle">4</div>
+        <div class="step-circle">5</div>
+      </div>
+
+      <!-- Dialogue -->
+      <div class="dialogue-card">
+        <div class="dialogue-q">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span id="judge-q-text">Which patient needs attention?</span>
+        </div>
+        <div class="dialogue-a" id="judge-a-text">
+          Patient B shows an elevated predicted deterioration trajectory.
+        </div>
+      </div>
+
+      <div style="font-size: 12px; color: #c084fc; font-style: italic; margin-bottom: 16px;" id="judge-note-text">
+        Notice the widening 90% conformal prediction confidence interval band.
+      </div>
+
+      <!-- Nav Buttons -->
+      <div class="judge-nav-btns">
+        <button id="judge-btn-prev" class="btn-secondary">◀ Previous Step</button>
+        <button id="judge-btn-next" class="btn-primary">Next Step ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclaimer Footer -->
+  <footer class="footer-disclaimer">
+    <p>
+      CareGraph is an AI hospital digital twin and clinical decision-support prototype developed for <b>VJ Hackathon 2026</b>.<br>
+      Not an autonomous medical device. All clinical triage and medication decisions remain strictly the responsibility of licensed clinical staff.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/trajectory_chart.js"></script>
+  <script src="js/knowledge_graph.js"></script>
+  <script src="js/counterfactual.js"></script>
+  <script src="js/optimizer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
