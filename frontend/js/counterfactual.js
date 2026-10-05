@@ -145,7 +145,7 @@ class CounterfactualSimulator {
     const yPos = (beds) => pad.top + (1.0 - (beds / maxBeds)) * chartH;
 
     // Grid lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.lineWidth = 1;
     for (let b = 0; b <= maxBeds; b += 8) {
       const y = yPos(b);
@@ -154,7 +154,7 @@ class CounterfactualSimulator {
       ctx.lineTo(w - pad.right, y);
       ctx.stroke();
 
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+      ctx.fillStyle = '#64748b';
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.textAlign = 'right';
       ctx.fillText(`${b} beds`, pad.left - 6, y + 3);

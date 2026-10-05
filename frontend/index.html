@@ -6,554 +6,997 @@
   <title>CareGraph — AI Clinical Risk & Hospital Resource Digital Twin</title>
   <meta name="description" content="Uncertainty-aware AI hospital digital twin combining patient clinical trajectories with macro operational capacity. Observe, Predict, Explain, Simulate, Optimize.">
   
-  <!-- Modern Google Fonts -->
+  <!-- Modern Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- CareGraph Master Stylesheet -->
   <link rel="stylesheet" href="css/caregraph.css">
 </head>
 <body>
 
-  <!-- Top Navigation & Brand Header -->
-  <header class="topbar">
-    <div class="brand-section">
-      <div class="brand-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-        </svg>
-      </div>
-      <div>
-        <h1 class="brand-title">CareGraph</h1>
-        <p class="brand-subtitle">AI Clinical Risk & Hospital Resource Digital Twin • VJ Hackathon 2026</p>
-      </div>
-    </div>
+  <!-- Outer Desktop / Tablet Mockup Window -->
+  <div class="desktop-wrapper">
 
-    <div class="topbar-right">
-      <div class="telemetry-status">
-        <span class="pulse-dot"></span>
-        <span>TWIN ACTIVE • 232 BEDS TRACKED</span>
-      </div>
-      <button id="btn-open-judge-tour" class="btn-judge-tour" title="Launch guided 5-step walkthrough based on hackathon criteria">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-        <span>Judge Walkthrough Mode</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Navigation View Tabs -->
-  <nav class="nav-tabs-wrapper" aria-label="Dashboard Views">
-    <button class="nav-tab active" data-view="overview">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      <span>Hospital Twin Overview</span>
-    </button>
-    <button class="nav-tab" data-view="trajectory">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-      <span>Patient Trajectories & EWS</span>
-    </button>
-    <button class="nav-tab" data-view="xai">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      <span>Explainable AI (XAI)</span>
-    </button>
-    <button class="nav-tab" data-view="graph">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      <span>Clinical Knowledge Graph</span>
-    </button>
-    <button class="nav-tab" data-view="simulator">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
-      <span>Counterfactual Simulator</span>
-    </button>
-    <button class="nav-tab" data-view="optimizer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <span>Resource Optimizer</span>
-    </button>
-  </nav>
-
-  <!-- Main Content Layout -->
-  <main class="main-content">
-
-    <!-- VIEW 1: HOSPITAL DIGITAL TWIN OVERVIEW -->
-    <section id="view-overview" class="view-section">
-      <!-- High-Level Macro Metric Cards -->
-      <div class="grid-cols-4">
-        <div class="glass-card stat-box">
-          <div class="stat-label">Total Bed Occupancy</div>
-          <div class="stat-value">203 <span class="stat-unit">/ 232 (87.5%)</span></div>
-          <div class="stat-change change-up">▲ +4.2% demand vs 24h ago</div>
-        </div>
-        <div class="glass-card stat-box">
-          <div class="stat-label">ICU Critical Occupancy</div>
-          <div class="stat-value" style="color: #f87171;">21 <span class="stat-unit">/ 24 (87.5%)</span></div>
-          <div class="stat-change change-up">⚡ High Pressure: 3 beds free</div>
-        </div>
-        <div class="glass-card stat-box">
-          <div class="stat-label">ED Triage Queue</div>
-          <div class="stat-value" style="color: #fbbf24;">14 <span class="stat-unit">patients</span></div>
-          <div class="stat-change">Avg Door-to-Doctor: 48 min</div>
-        </div>
-        <div class="glass-card stat-box">
-          <div class="stat-label">Ventilator Fleet Fleet</div>
-          <div class="stat-value" style="color: #38bdf8;">26 <span class="stat-unit">/ 36 deployed</span></div>
-          <div class="stat-change change-down">✓ 10 units in central reserve</div>
+    <!-- Browser Mockup Chrome Header -->
+    <header class="browser-chrome">
+      <div class="browser-traffic-lights">
+        <span class="traffic-dot red" title="Close"></span>
+        <span class="traffic-dot yellow" title="Minimize"></span>
+        <span class="traffic-dot green" title="Expand"></span>
+        <div class="browser-controls">
+          <button class="browser-btn" title="Window View">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <button class="browser-btn" title="Favorite">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </button>
+          <button class="browser-btn" title="Back">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="browser-btn" title="Forward">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
       </div>
 
-      <!-- Floor & Unit Census Breakdown -->
-      <div class="grid-cols-2-1">
-        <div class="glass-card">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                Unit Operational Capacity & Staffing
-              </h2>
-              <p class="card-subtitle">Real-time bed census, nurse-to-patient ratios, and ventilator allocations</p>
+      <div class="browser-address-bar">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>https://www.caregraph.health/digital-twin</span>
+        <svg width="13" height="13" style="margin-left: auto; cursor: pointer;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </div>
+
+      <div class="browser-actions-right">
+        <button class="browser-btn" title="Share"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+        <button class="browser-btn" title="Add Tab"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="browser-btn" title="Tabs Overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
+      </div>
+    </header>
+
+    <!-- CarePoint Showcase Hero Banner (From Image 3) -->
+    <section class="hero-banner" id="carepoint-hero-banner">
+      <button class="hero-banner-close" id="btn-close-hero" title="Dismiss Banner">✕</button>
+      <h1 class="hero-title">
+        Transform <span class="highlight">Healthcare</span> Efficiency with Cutting-Edge Technology
+      </h1>
+      <p class="hero-desc">
+        Connect micro-level patient clinical trajectories with macro-level hospital operational capacity in real-time. Observe, predict, explain, simulate, and optimize.
+      </p>
+      <div class="hero-cta-group">
+        <button class="btn-get-started" id="btn-hero-start">
+          <span>Get Started</span>
+          <span class="arrow-bubble">➔</span>
+        </button>
+        <button class="btn-watch-demo" id="btn-hero-demo">
+          <span class="play-bubble">▶</span>
+          <span>Watch a Demo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- App Main Layout (Left Rail + Content) -->
+    <div class="app-layout">
+
+      <!-- Left Vertical Icon Rail -->
+      <aside class="left-rail" aria-label="Quick Actions">
+        <button class="rail-btn" title="Toggle Sidebar" id="rail-btn-collapse">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="rail-btn" title="Share Clinical Graph" data-view-target="graph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+        <button class="rail-btn" title="Export Clinical Data" id="rail-btn-export">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+        <button class="rail-btn" title="High Priority Watchlist" data-view-target="trajectory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+        
+        <div class="rail-divider"></div>
+
+        <button class="rail-btn" title="New What-If Simulation" data-view-target="simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="rail-btn" title="Patient Clinical Cohort" data-view-target="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </button>
+        <button class="rail-btn" title="Trajectory Forecast Engine" data-view-target="trajectory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </button>
+        <button class="rail-btn" title="24h Horizon Timeline" data-view-target="optimizer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </button>
+
+        <div style="margin-top: auto;">
+          <button class="rail-btn" title="Live Telemetry Heartbeat" id="rail-btn-sound">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Workspace -->
+      <main class="main-workspace">
+
+        <!-- Top Navigation Bar -->
+        <header class="topbar">
+          <!-- Brand Logo & Title -->
+          <div class="brand-section">
+            <div class="care-cross-logo" id="logo-refresh" title="CareGraph Digital Twin">
+              <span class="petal petal-1"></span>
+              <span class="petal petal-2"></span>
+              <span class="petal petal-3"></span>
+              <span class="petal petal-4"></span>
             </div>
-            <span class="badge badge-critical">Active Code 1</span>
+            <div>
+              <h2 class="brand-title">CareGraph</h2>
+              <p class="brand-subtitle">AI Clinical Risk & Hospital Digital Twin</p>
+            </div>
           </div>
 
-          <div id="hospital-units-list">
+          <!-- Nav Tab Pills Menu (Dashboard active black pill) -->
+          <nav class="nav-tabs-menu" aria-label="Main Navigation">
+            <button class="nav-pill-btn active" data-view="overview">
+              <span>Dashboard</span>
+            </button>
+            <button class="nav-pill-btn" data-view="trajectory">
+              <span>Patient</span>
+            </button>
+            <button class="nav-pill-btn" data-view="xai">
+              <span>Doctors and Staff</span>
+            </button>
+            <button class="nav-pill-btn" data-view="graph">
+              <span>Room</span>
+            </button>
+            <button class="nav-pill-btn" data-view="simulator">
+              <span>Medicine</span>
+            </button>
+            <button class="nav-pill-btn" data-view="optimizer">
+              <span>Analitik</span>
+            </button>
+          </nav>
+
+          <!-- Topbar Right Tools -->
+          <div class="topbar-right">
+            <button class="icon-circle-btn" title="Messages">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </button>
+            <button class="icon-circle-btn" title="Notifications">
+              <span class="unread-dot"></span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </button>
+
+            <!-- Admin Profile Pill -->
+            <div class="user-profile-pill" title="Active Clinician Session">
+              <img src="https://images.unsplash.com/photo-1594824813511-2e65c0d59218?auto=format&fit=crop&w=80&q=80" alt="Karlina Safir" class="user-avatar-img">
+              <div>
+                <div class="user-role-label">Admin</div>
+                <div class="user-name-text">Karlina Safir</div>
+              </div>
+            </div>
+
+            <!-- Judge Walkthrough Mode Button -->
+            <button id="btn-open-judge-tour" class="btn-judge-tour" title="Launch guided 5-step walkthrough based on hackathon criteria">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              <span>Judge Tour</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- ========================================== -->
+        <!-- VIEW 1: MASTER DASHBOARD & STATISTICAL SUMMARY -->
+        <!-- ========================================== -->
+        <section id="view-overview" class="view-section">
+          
+          <div class="statistical-summary-container">
+            <div class="section-header-row">
+              <h2 class="section-title">Statistical Summary</h2>
+              <div style="display: flex; gap: 8px;">
+                <span class="filter-pill">⚡ Live Telemetry Active</span>
+                <span class="filter-pill">232 Beds Tracked</span>
+              </div>
+            </div>
+
+            <!-- 3 Large Stat Cards Row with Notch Teal Arrow -->
+            <div class="stat-cards-grid">
+
+              <!-- Card 1: Number of patients -->
+              <div class="stat-card-parent">
+                <div class="stat-card-header">
+                  <div>
+                    <h3 class="stat-card-title">Number of patients</h3>
+                    <div class="filter-pill">
+                      <span>Week</span>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                  <div class="corner-teal-arrow" title="View Patient Trajectories" onclick="document.querySelector('[data-view=\'trajectory\']').click()">
+                    <span>↗</span>
+                  </div>
+                </div>
+
+                <!-- Adult Patients -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Adult Patients</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      </span>
+                      <span class="metric-big-number">547</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="Expand Details">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+
+                <!-- Kids Patients -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Kids Patients</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/></svg>
+                      </span>
+                      <span class="metric-big-number">372</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="Expand Details">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card 2: Daily Visit -->
+              <div class="stat-card-parent">
+                <div class="stat-card-header">
+                  <div>
+                    <h3 class="stat-card-title">Daily Visit</h3>
+                    <div class="filter-pill">
+                      <span>Week</span>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                  <div class="corner-teal-arrow" title="View Emergency Inflow" onclick="document.querySelector('[data-view=\'simulator\']').click()">
+                    <span>↗</span>
+                  </div>
+                </div>
+
+                <!-- Emergency Room -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Emergency Room</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small" style="color: var(--accent-coral);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                      </span>
+                      <span class="metric-big-number">78</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="Door-to-Doctor 48m">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+
+                <!-- Polyclinic -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Polyclinic</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small" style="color: #2563eb;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                      </span>
+                      <span class="metric-big-number">243</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="Triage Queue Normal">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card 3: Room Capacity -->
+              <div class="stat-card-parent">
+                <div class="stat-card-header">
+                  <div>
+                    <h3 class="stat-card-title">Room Capacity</h3>
+                    <div class="filter-pill">
+                      <span>Cendana</span>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                  <div class="corner-teal-arrow" title="View Bed Allocations" onclick="document.querySelector('[data-view=\'optimizer\']').click()">
+                    <span>↗</span>
+                  </div>
+                </div>
+
+                <!-- Bed Available -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Bed Available</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small" style="color: #10b981;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                      </span>
+                      <span class="metric-big-number">12</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="Recovery Ward Capacity">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+
+                <!-- Occupied Bed -->
+                <div class="inner-metric-pill-card">
+                  <div class="metric-left">
+                    <span class="metric-label">Occupied Bed</span>
+                    <div class="metric-row">
+                      <span class="metric-icon-small" style="color: var(--accent-coral);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><circle cx="7" cy="12" r="2"/></svg>
+                      </span>
+                      <span class="metric-big-number">188</span>
+                    </div>
+                  </div>
+                  <span class="metric-expand-icon" title="87.5% System Utilization">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- LOWER 3-COLUMN MASTER GRID (Health Trends | Doctor's Schedule | Doctor's Conference) -->
+          <div class="lower-dashboard-grid">
+
+            <!-- COLUMN 1: Health Trends Table -->
+            <div class="dashboard-panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Health Trends</h3>
+                <div class="panel-controls-right">
+                  <button class="search-circle-btn" title="Search Disease Trends">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </button>
+                  <div class="filter-pill">
+                    <span>Des 24</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <table class="trends-table">
+                <thead>
+                  <tr>
+                    <th>Disease</th>
+                    <th>Characteristic</th>
+                    <th style="text-align: right;">Patients</th>
+                    <th style="text-align: right;">Recovers</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight: 700;">Covid 19</td>
+                    <td><span class="tag-characteristic tag-infectious">Infectious</span></td>
+                    <td style="text-align: right; font-weight: 700;">698</td>
+                    <td style="text-align: right; color: #16a34a; font-weight: 700;">325</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700;">Heart Disease</td>
+                    <td><span class="tag-characteristic tag-non-infectious">Non Infectious</span></td>
+                    <td style="text-align: right; font-weight: 700;">154</td>
+                    <td style="text-align: right; color: #16a34a; font-weight: 700;">82</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700;">Diabetes</td>
+                    <td><span class="tag-characteristic tag-non-infectious">Non Infectious</span></td>
+                    <td style="text-align: right; font-weight: 700;">229</td>
+                    <td style="text-align: right; color: #16a34a; font-weight: 700;">23</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700;">TBC</td>
+                    <td><span class="tag-characteristic tag-infectious">Infectious</span></td>
+                    <td style="text-align: right; font-weight: 700;">58</td>
+                    <td style="text-align: right; color: #16a34a; font-weight: 700;">53</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700;">Dengue Fever</td>
+                    <td><span class="tag-characteristic tag-non-infectious">Non Infectious</span></td>
+                    <td style="text-align: right; font-weight: 700;">563</td>
+                    <td style="text-align: right; color: #16a34a; font-weight: 700;">543</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- COLUMN 2: Doctor's Schedule & Ward Calendar Strip -->
+            <div class="dashboard-panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Doctor's Schedule</h3>
+                <div class="panel-controls-right">
+                  <button class="search-circle-btn" title="Search Schedule">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </button>
+                  <div class="filter-pill">
+                    <span>Des 24</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calendar Days Strip (Mon-Sun) -->
+              <div class="calendar-days-strip">
+                <div class="day-box">
+                  <div class="day-name">Mon</div>
+                  <div class="day-num">7</div>
+                </div>
+                <div class="day-box">
+                  <div class="day-name">Tue</div>
+                  <div class="day-num">8</div>
+                </div>
+                <div class="day-box active-teal">
+                  <div class="day-name">Wed</div>
+                  <div class="day-num">9</div>
+                </div>
+                <div class="day-box">
+                  <div class="day-name">Thu</div>
+                  <div class="day-num">10</div>
+                </div>
+                <div class="day-box">
+                  <div class="day-name">Fri</div>
+                  <div class="day-num">11</div>
+                </div>
+                <div class="day-box active-coral">
+                  <div class="day-name">Sat</div>
+                  <div class="day-num">12</div>
+                </div>
+                <div class="day-box active-coral">
+                  <div class="day-name">Sun</div>
+                  <div class="day-num">13</div>
+                </div>
+              </div>
+
+              <!-- Time Event Card -->
+              <div class="time-event-card">
+                <div class="event-time-badge">08:00</div>
+                <div class="event-inner-pill">
+                  <div class="event-title">Patient Visit</div>
+                  <div class="event-sub">Patient visit schedule in dahlia room</div>
+                </div>
+                <div class="event-time-badge" style="color: #94a3b8;">10:00</div>
+              </div>
+
+              <!-- Attending Doctors Row -->
+              <div class="attending-doctors-row">
+                <div class="doctor-meta-left">
+                  <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=80&q=80" alt="Dr. Karlina S" class="doctor-avatar-circle">
+                  <div>
+                    <div class="doctor-spec-label">Pediatrician</div>
+                    <div class="doctor-name-bold">Dr. Karlina S</div>
+                  </div>
+                </div>
+
+                <div class="avatars-overlap-stack">
+                  <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=60&q=80" alt="Doctor" class="avatar-stack-item">
+                  <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=60&q=80" alt="Doctor" class="avatar-stack-item">
+                  <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=60&q=80" alt="Doctor" class="avatar-stack-item">
+                  <img src="https://images.unsplash.com/photo-1594824813511-2e65c0d59218?auto=format&fit=crop&w=60&q=80" alt="Doctor" class="avatar-stack-item">
+                </div>
+              </div>
+            </div>
+
+            <!-- COLUMN 3: Doctor's Conference & Clinical Alerts Rail -->
+            <div class="dashboard-panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Doctor's Conference</h3>
+                <button class="search-circle-btn" title="Search Conferences">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+              </div>
+
+              <!-- Urgent Alert Notification Banner -->
+              <div class="urgent-reminder-banner">
+                <div class="reminder-content-left">
+                  <span class="warning-icon-red">⚠️</span>
+                  <p class="reminder-text">Bypass surgery meeting to start soon, remind doctor</p>
+                </div>
+                <button class="btn-black-pill-sm" onclick="alert('Notification dispatched to Attending Surgeon on call.')">
+                  Remind
+                </button>
+              </div>
+
+              <!-- Conference Schedule List -->
+              <div class="conference-list-container">
+                <div class="conference-item-card">
+                  <div class="conf-meta-left">
+                    <span class="conf-time-badge">Tue, 15 Jan • 09:00 am</span>
+                    <span class="conf-title-bold">Heart bypass surgery conference</span>
+                  </div>
+                  <div class="conf-right-attendees">
+                    <div class="avatars-overlap-stack">
+                      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                    </div>
+                    <span class="conf-arrow-btn">↗</span>
+                  </div>
+                </div>
+
+                <div class="conference-item-card">
+                  <div class="conf-meta-left">
+                    <span class="conf-time-badge">Tue, 15 Jan • 16:00 pm</span>
+                    <span class="conf-title-bold">Conference to respond to rising covid 19 cases</span>
+                  </div>
+                  <div class="conf-right-attendees">
+                    <div class="avatars-overlap-stack">
+                      <img src="https://images.unsplash.com/photo-1594824813511-2e65c0d59218?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                    </div>
+                    <span class="conf-arrow-btn">↗</span>
+                  </div>
+                </div>
+
+                <div class="conference-item-card">
+                  <div class="conf-meta-left">
+                    <span class="conf-time-badge">Wed, 16 Jan • 10:00 am</span>
+                    <span class="conf-title-bold">Spinal surgery of patient named fulan</span>
+                  </div>
+                  <div class="conf-right-attendees">
+                    <div class="avatars-overlap-stack">
+                      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                    </div>
+                    <span class="conf-arrow-btn">↗</span>
+                  </div>
+                </div>
+
+                <div class="conference-item-card">
+                  <div class="conf-meta-left">
+                    <span class="conf-time-badge">Wed, 16 Jan • 13:00 pm</span>
+                    <span class="conf-title-bold">Heart bypass surgery conference</span>
+                  </div>
+                  <div class="conf-right-attendees">
+                    <div class="avatars-overlap-stack">
+                      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                      <img src="https://images.unsplash.com/photo-1594824813511-2e65c0d59218?auto=format&fit=crop&w=60&q=80" alt="Attendee" class="avatar-stack-item">
+                    </div>
+                    <span class="conf-arrow-btn">↗</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Big Coral + Make Conference Button -->
+              <button class="btn-make-conference-coral" onclick="document.querySelector('[data-view=\'optimizer\']').click()">
+                <span>+ Make Conference</span>
+              </button>
+              <div class="btn-caption-sub">create conference schedule data as a reminder</div>
+            </div>
+
+          </div>
+
+          <!-- Unit Operational Capacity & Staffing Section -->
+          <div class="glass-card" style="margin-top: 10px;">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  Hospital Operational Capacity & Staffing
+                </h3>
+                <p class="card-subtitle">Real-time bed census, nurse-to-patient ratios, and ventilator fleet status</p>
+              </div>
+              <span class="badge badge-critical">Active Code 1</span>
+            </div>
+
+            <div id="hospital-units-list">
+              <!-- Populated dynamically by app.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: PATIENT TRAJECTORIES & EARLY WARNING SYSTEM -->
+        <!-- ========================================== -->
+        <section id="view-trajectory" class="view-section" style="display: none;">
+          <!-- Patient Selector Bar -->
+          <div class="patient-selector-bar" id="patient-chip-container">
             <!-- Populated dynamically by app.js -->
           </div>
-        </div>
 
-        <!-- Operations Alert & Deterioration Watchlist -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              Early Warning Alerts
-            </h2>
-            <span class="badge badge-obs">Live Feed</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <div style="padding: 12px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25);">
-              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #f87171; font-size: 13px;">
-                <span>Eleanor Vance (Patient B)</span>
-                <span class="badge badge-critical">Deteriorating</span>
+          <!-- Selected Patient Header Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                  <h2 id="patient-banner-name" style="font-size: 22px; font-weight: 800; color: #111827;">Eleanor Vance (Patient B)</h2>
+                  <span id="patient-banner-news2" class="badge badge-critical">NEWS2 Score: 9</span>
+                </div>
+                <p id="patient-banner-meta" style="font-size: 13px; color: var(--text-muted);">68yo Female • Step-Down Ward 4B • Bed 12 • Admitted: 36 hrs ago</p>
+                <p id="patient-banner-diagnosis" style="font-size: 14px; color: #0284c7; font-weight: 700; margin-top: 4px;">Severe Sepsis secondary to Pyelonephritis</p>
               </div>
-              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Step-Down Bed 12 • Predicted ICU transfer probability <b>82% within 6h</b> due to rising lactate (4.1 mmol/L) & hypoxemia.</p>
-            </div>
 
-            <div style="padding: 12px; border-radius: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25);">
-              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #fbbf24; font-size: 13px;">
-                <span>Marcus Brody (Patient C)</span>
-                <span class="badge badge-critical">Critical</span>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <div class="stat-box">
+                  <div class="stat-label">6h Horizon</div>
+                  <div style="font-size: 20px; font-weight: 800; color: var(--accent-coral); font-family: var(--font-mono);">82%</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-label">12h Horizon</div>
+                  <div style="font-size: 20px; font-weight: 800; color: var(--accent-coral); font-family: var(--font-mono);">88%</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-label">24h Horizon</div>
+                  <div style="font-size: 20px; font-weight: 800; color: var(--accent-coral); font-family: var(--font-mono);">91%</div>
+                </div>
               </div>
-              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">ICU Bed 03 • Severe ARDS • 1:1 dedicated nurse requirement. PaO2/FiO2 145 on PEEP 14.</p>
             </div>
+          </div>
 
-            <div style="padding: 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);">
-              <div style="display: flex; justify-content: space-between; font-weight: 700; color: #34d399; font-size: 13px;">
-                <span>Arthur Pendelton (Patient A)</span>
-                <span class="badge badge-stable">Stabilizing</span>
+          <!-- Conformal Trajectory Chart -->
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  Temporal Deterioration Trajectory & Conformal Uncertainty Bounds
+                </h3>
+                <p class="card-subtitle">Connecting past 24h vitals trend with multi-horizon risk forecast (6h, 12h, 24h, 48h) + 90% confidence intervals</p>
               </div>
-              <p style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Cardiothoracic Step-Down Bed 04 • NEWS2 dropping to 5 • Eligible for step-down transfer to recover ICU buffer.</p>
+              <div style="display: flex; gap: 8px;">
+                <span class="badge badge-obs">Observed Vitals</span>
+                <span class="badge badge-pred">Temporal AI Forecast</span>
+              </div>
+            </div>
+
+            <div id="trajectory-chart-container" class="chart-container"></div>
+          </div>
+
+          <!-- Vitals & Labs Telemetry Grid -->
+          <div class="grid-cols-2">
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Current Longitudinal Vitals</h3>
+                <span class="badge badge-obs">Observed Ground Truth</span>
+              </div>
+              <table class="telemetry-table">
+                <thead>
+                  <tr><th>Vital Sign</th><th>Current Measurement</th><th>Clinical Interpretation</th></tr>
+                </thead>
+                <tbody id="patient-vitals-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Diagnostic Laboratory Panel</h3>
+                <span class="badge badge-obs">Validated Lab Results</span>
+              </div>
+              <table class="telemetry-table">
+                <thead>
+                  <tr><th>Biomarker</th><th>Value</th><th>Status & Reference Range</th></tr>
+                </thead>
+                <tbody id="patient-labs-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- VIEW 2: PATIENT TRAJECTORIES & EARLY WARNING SYSTEM -->
-    <section id="view-trajectory" class="view-section" style="display: none;">
-      <!-- Patient Selector Strip -->
-      <div class="patient-selector-bar" id="patient-chip-container">
-        <!-- Populated dynamically -->
-      </div>
+        <!-- ========================================== -->
+        <!-- VIEW 3: EXPLAINABLE AI (XAI) -->
+        <!-- ========================================== -->
+        <section id="view-xai" class="view-section" style="display: none;">
+          <div class="grid-cols-1-2">
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Explainability Pipeline</h3>
+                <span class="badge badge-pred">SHAP Attributions</span>
+              </div>
+              <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+                CareGraph provides clinical explainability by decomposing multi-horizon trajectory forecasts into biological feature attributions, identifying inflection points in serum lactate and hypoxemia.
+              </p>
 
-      <!-- Selected Patient Header Banner -->
-      <div class="glass-card" style="margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
-              <h2 id="patient-banner-name" style="font-size: 20px; font-weight: 800; color: #ffffff;">Eleanor Vance (Patient B)</h2>
-              <span id="patient-banner-news2" class="badge badge-critical">NEWS2 Score: 9</span>
+              <div style="padding: 14px; border-radius: var(--radius-sm); background: #f0fdf4; border: 1px solid #bbf7d0; margin-bottom: 16px;">
+                <div style="font-weight: 700; color: #15803d; font-size: 12px; margin-bottom: 4px;">OBSERVED VS PREDICTED SEPARATION</div>
+                <p style="font-size: 12px; color: #166534; line-height: 1.5;">Model-derived feature contributions represent statistical associations across time-series sequences. They are clearly distinguished from physical observations.</p>
+              </div>
+
+              <div style="font-size: 12px; color: var(--text-dim); line-height: 1.6;">
+                Algorithm: <b>Temporal Gradient SHAP + Conformal Prediction</b><br>
+                Baseline: eICU / MIMIC-IV cohort distribution
+              </div>
             </div>
-            <p id="patient-banner-meta" style="font-size: 12px; color: var(--text-muted);">68yo Female • Step-Down Ward 4B • Bed 12 • Admitted: 36 hrs ago</p>
-            <p id="patient-banner-diagnosis" style="font-size: 13px; color: #38bdf8; font-weight: 600; margin-top: 4px;">Severe Sepsis secondary to Pyelonephritis</p>
-          </div>
 
-          <div style="display: flex; gap: 10px;">
-            <div class="stat-box" style="padding: 10px 16px;">
-              <div class="stat-label">6h Risk Horizon</div>
-              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">82%</div>
-            </div>
-            <div class="stat-box" style="padding: 10px 16px;">
-              <div class="stat-label">12h Risk Horizon</div>
-              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">88%</div>
-            </div>
-            <div class="stat-box" style="padding: 10px 16px;">
-              <div class="stat-label">24h Risk Horizon</div>
-              <div style="font-size: 18px; font-weight: 800; color: #ef4444; font-family: var(--font-mono);">91%</div>
+            <!-- Waterfall Feature Impact Cards -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Feature Attribution Waterfall for Selected Patient</h3>
+                <span class="badge badge-critical">Active Risk Drivers</span>
+              </div>
+              <div id="xai-attribution-list" class="xai-list">
+                <!-- Populated dynamically by app.js -->
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <!-- Trajectory Chart with Conformal Bounds -->
-      <div class="glass-card" style="margin-bottom: 20px;">
-        <div class="card-header">
-          <div>
-            <h3 class="card-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              Temporal Deterioration Trajectory & Conformal Uncertainty Bounds
-            </h3>
-            <p class="card-subtitle">Connects past 24h vitals trend with multi-horizon risk forecast (6h, 12h, 24h, 48h) + 90% confidence intervals</p>
-          </div>
-          <div style="display: flex; gap: 8px;">
-            <span class="badge badge-obs">Observed Vitals</span>
-            <span class="badge badge-pred">Temporal AI Forecast</span>
-          </div>
-        </div>
+        <!-- ========================================== -->
+        <!-- VIEW 4: CLINICAL KNOWLEDGE GRAPH -->
+        <!-- ========================================== -->
+        <section id="view-graph" class="view-section" style="display: none;">
+          <div class="grid-cols-2-1">
+            <div class="glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Heterogeneous Clinical Knowledge Graph</h3>
+                  <p class="card-subtitle">Connects: Patient ➔ Condition ➔ Lab ➔ Medication ➔ Risk Factor ➔ Complication ➔ Required Resource</p>
+                </div>
+                <span class="badge badge-obs">Drag & Inspect Nodes</span>
+              </div>
 
-        <div id="trajectory-chart-container" class="chart-container"></div>
-      </div>
+              <div id="kg-canvas-container" class="kg-container"></div>
 
-      <!-- Vitals & Labs Telemetry Grid -->
-      <div class="grid-cols-2">
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Current Longitudinal Vitals</h3>
-            <span class="badge badge-obs">Observed Ground Truth</span>
-          </div>
-          <table class="telemetry-table">
-            <thead>
-              <tr><th>Vital Sign</th><th>Current Measurement</th><th>Clinical Interpretation</th></tr>
-            </thead>
-            <tbody id="patient-vitals-body">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
-
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Diagnostic Laboratory Panel</h3>
-            <span class="badge badge-obs">Validated Lab Results</span>
-          </div>
-          <table class="telemetry-table">
-            <thead>
-              <tr><th>Biomarker</th><th>Value</th><th>Status & Reference Range</th></tr>
-            </thead>
-            <tbody id="patient-labs-body">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 3: EXPLAINABLE AI (XAI) -->
-    <section id="view-xai" class="view-section" style="display: none;">
-      <div class="grid-cols-1-2">
-        <!-- Rationale & Methodology -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Explainability Pipeline</h3>
-            <span class="badge badge-pred">SHAP / Temporal Attributions</span>
-          </div>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
-            CareGraph ensures transparent clinical machine learning. Rather than serving black-box predictions, our temporal attention models isolate specific physiological and laboratory inflections that drive predicted deterioration trajectories.
-          </p>
-
-          <div style="padding: 14px; border-radius: 8px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); margin-bottom: 14px;">
-            <div style="font-weight: 700; color: #38bdf8; font-size: 12px; margin-bottom: 4px;">OBSERVED VS PREDICTED SEPARATION</div>
-            <p style="font-size: 11px; color: #cbd5e1;">Model-derived feature contributions reflect statistical associations across time-series sequences. They are clearly distinguished from observed clinical records.</p>
-          </div>
-
-          <div style="font-size: 12px; color: var(--text-dim);">
-            Algorithm: <b>Temporal Gradient SHAP + Conformal Prediction</b><br>
-            Baseline: eICU / MIMIC-IV cohort distribution
-          </div>
-        </div>
-
-        <!-- Waterfall / Feature Impact Cards -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Feature Attribution Waterfall for Selected Patient</h3>
-            <span class="badge badge-critical">Active Risk Drivers</span>
-          </div>
-          <div id="xai-attribution-list" class="xai-list">
-            <!-- Populated dynamically -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 4: CLINICAL KNOWLEDGE GRAPH -->
-    <section id="view-graph" class="view-section" style="display: none;">
-      <div class="grid-cols-2-1">
-        <div class="glass-card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Heterogeneous Clinical Knowledge Graph</h3>
-              <p class="card-subtitle">Connects: Patient ➔ Condition ➔ Lab ➔ Medication ➔ Risk Factor ➔ Complication ➔ Required Resource</p>
+              <div class="kg-legend">
+                <div class="legend-item"><span class="legend-dot" style="background: #0284c7;"></span> Patient</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #ec4899;"></span> Condition</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #eab308;"></span> Lab Biomarker</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #a855f7;"></span> Medication</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #f97316;"></span> Risk Factor</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Complication</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Hospital Resource</div>
+              </div>
             </div>
-            <span class="badge badge-obs">Drag & Inspect Nodes</span>
-          </div>
 
-          <div id="kg-canvas-container" class="kg-container"></div>
+            <!-- Node Inspector Sidebar -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Entity Inspector</h3>
+                <span class="badge badge-pred">Semantic Linkage</span>
+              </div>
+              <div id="kg-node-details" style="padding: 16px; border-radius: var(--radius-sm); background: #f8fafc; border: 1px solid #e2e8ed;">
+                <div style="font-size: 13px; color: var(--text-muted);">Click on any graph node to inspect its ontology, clinical relationships, and downstream hospital resource demand.</div>
+              </div>
 
-          <div class="kg-legend">
-            <div class="legend-item"><span class="legend-dot" style="background: #38bdf8;"></span> Patient</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #ec4899;"></span> Condition</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #eab308;"></span> Lab Biomarker</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #a855f7;"></span> Medication</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #f97316;"></span> Risk Factor</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Complication</div>
-            <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Hospital Resource</div>
-          </div>
-        </div>
-
-        <!-- Node Inspector Sidebar -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Entity Inspector</h3>
-            <span class="badge badge-pred">Semantic Linkage</span>
-          </div>
-          <div id="kg-node-details" style="padding: 14px; border-radius: 8px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);">
-            <div style="font-size: 13px; color: var(--text-muted);">Click on any graph node to inspect its ontology, clinical relationships, and downstream hospital resource demand.</div>
-          </div>
-
-          <div style="margin-top: 20px;">
-            <div style="font-weight: 700; font-size: 12px; color: var(--text-main); margin-bottom: 8px;">Clinical Knowledge Reasoning</div>
-            <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
-              By formalizing patient states as a knowledge graph, CareGraph bridges the semantic gap between a lab abnormality (e.g., Lactate &gt; 4.0) and the physical hospital asset (ICU resuscitation bay + continuous vasopressor titration).
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 5: COUNTERFACTUAL HOSPITAL SIMULATOR (THE WOW FEATURE) -->
-    <section id="view-simulator" class="view-section" style="display: none;">
-      <!-- Simulation Controls Bar -->
-      <div class="glass-card" style="margin-bottom: 20px;">
-        <div class="card-header">
-          <div>
-            <h2 class="card-title" style="font-size: 16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
-              Counterfactual "What-If" Hospital Simulator
-            </h2>
-            <p class="card-subtitle">Change the world ➔ Simulate response ➔ Detect bottlenecks ➔ Prevent crisis before acting</p>
-          </div>
-          <span class="badge badge-sim">Discrete-Event Engine</span>
-        </div>
-
-        <!-- Presets -->
-        <div class="preset-buttons">
-          <button class="btn-preset active" data-preset="ed-surge">Scenario 1: +10 Emergency Surge</button>
-          <button class="btn-preset" data-preset="icu-drop">Scenario 2: ICU Capacity Falls 15%</button>
-          <button class="btn-preset" data-preset="combined">Scenario 3: Combined Surge & Capacity Shock</button>
-          <button class="btn-preset" data-preset="reschedule">Scenario 4: Reschedule Elective Admissions</button>
-        </div>
-
-        <!-- Sliders -->
-        <div class="grid-cols-4">
-          <div class="slider-group">
-            <div class="slider-header">
-              <span>Emergency Arrivals Surge</span>
-              <span id="val-arrivals" class="slider-val">+10 Patients</span>
+              <div style="margin-top: 24px;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--text-heading); margin-bottom: 8px;">Clinical Knowledge Reasoning</div>
+                <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                  CareGraph bridges the semantic gap between a lab abnormality (e.g. Lactate &gt; 4.0) and the physical hospital asset (ICU resuscitation bay + continuous vasopressor titration).
+                </p>
+              </div>
             </div>
-            <input type="range" id="slider-arrivals" class="cyber-slider" min="0" max="30" value="10" step="1">
           </div>
+        </section>
 
-          <div class="slider-group">
-            <div class="slider-header">
-              <span>ICU Capacity Delta</span>
-              <span id="val-capacity" class="slider-val">-15%</span>
+        <!-- ========================================== -->
+        <!-- VIEW 5: COUNTERFACTUAL HOSPITAL SIMULATOR -->
+        <!-- ========================================== -->
+        <section id="view-simulator" class="view-section" style="display: none;">
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+                  Counterfactual "What-If" Hospital Simulator
+                </h2>
+                <p class="card-subtitle">Change the world ➔ Simulate response ➔ Detect bottlenecks ➔ Prevent crisis before acting</p>
+              </div>
+              <span class="badge badge-sim">Discrete-Event Engine</span>
             </div>
-            <input type="range" id="slider-capacity" class="cyber-slider" min="-40" max="30" value="-15" step="5">
-          </div>
 
-          <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
-            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);">
-              <input type="checkbox" id="check-electives" style="width: 16px; height: 16px; accent-color: var(--accent-cyan);">
-              <span>Reschedule Elective Surgeries</span>
-            </label>
-            <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Frees 3 recovery beds within 6h</span>
-          </div>
-
-          <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Simulation Horizon</div>
-            <div style="font-size: 16px; font-weight: 700; color: #ffffff; font-family: var(--font-mono);">24 Hours Dynamic</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Simulation Output Chart & Metrics -->
-      <div class="grid-cols-2-1">
-        <div class="glass-card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Simulated Demand vs Capacity Ceiling Timeline</h3>
-              <p class="card-subtitle">Comparing Baseline ICU Occupancy (dashed gray) with Counterfactual Demand (glowing curve)</p>
+            <!-- Presets -->
+            <div class="preset-buttons">
+              <button class="btn-preset active" data-preset="ed-surge">Scenario 1: +10 Emergency Surge</button>
+              <button class="btn-preset" data-preset="icu-drop">Scenario 2: ICU Capacity Falls 15%</button>
+              <button class="btn-preset" data-preset="combined">Scenario 3: Combined Surge & Capacity Shock</button>
+              <button class="btn-preset" data-preset="reschedule">Scenario 4: Reschedule Elective Admissions</button>
             </div>
-            <span id="sim-bottleneck-badge" class="badge badge-critical">BOTTLENECK DETECTED</span>
+
+            <!-- Sliders -->
+            <div class="grid-cols-4">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span>Emergency Surge</span>
+                  <span id="val-arrivals" class="slider-val">+10 Patients</span>
+                </div>
+                <input type="range" id="slider-arrivals" class="cyber-slider" min="0" max="30" value="10" step="1">
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span>ICU Capacity Delta</span>
+                  <span id="val-capacity" class="slider-val">-15%</span>
+                </div>
+                <input type="range" id="slider-capacity" class="cyber-slider" min="-40" max="30" value="-15" step="5">
+              </div>
+
+              <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; cursor: pointer; color: #111827;">
+                  <input type="checkbox" id="check-electives" style="width: 16px; height: 16px; accent-color: var(--accent-coral);">
+                  <span>Reschedule Elective Surgeries</span>
+                </label>
+                <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Frees 3 recovery beds within 6h</span>
+              </div>
+
+              <div class="slider-group" style="display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Simulation Horizon</div>
+                <div style="font-size: 17px; font-weight: 800; color: #111827; font-family: var(--font-mono);">24 Hours Dynamic</div>
+              </div>
+            </div>
           </div>
 
-          <div id="simulation-chart-container" class="chart-container"></div>
+          <!-- Simulation Output Chart & Metrics -->
+          <div class="grid-cols-2-1">
+            <div class="glass-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Simulated Demand vs Capacity Ceiling Timeline</h3>
+                  <p class="card-subtitle">Comparing Baseline ICU Occupancy with Counterfactual Shock Curve</p>
+                </div>
+                <span id="sim-bottleneck-badge" class="badge badge-critical">BOTTLENECK DETECTED</span>
+              </div>
+
+              <div id="simulation-chart-container" class="chart-container"></div>
+            </div>
+
+            <!-- Findings Box -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Scenario Impact Summary</h3>
+                <span class="badge badge-sim">What-If Discovery</span>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <div class="stat-label">Peak ICU Demand</div>
+                <div id="sim-peak-val" class="stat-value" style="color: var(--accent-coral);">25 / 20 Beds</div>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <div class="stat-label">Projected Critical Bed Deficit</div>
+                <div id="sim-deficit-val" class="stat-value" style="color: var(--accent-coral);">5 Beds Deficit</div>
+              </div>
+
+              <div style="padding: 14px; border-radius: var(--radius-sm); background: #fef2f2; border: 1px solid #fecaca; margin-bottom: 20px;">
+                <div style="font-weight: 700; font-size: 12px; color: #b91c1c; margin-bottom: 4px;">CRITICAL SYSTEM STRESS</div>
+                <p id="sim-summary-text" style="font-size: 12px; color: #991b1b; line-height: 1.5;">
+                  Simulated demand exceeds operational ceiling at T+4.5h. 5 patients face diversion without proactive reallocation.
+                </p>
+              </div>
+
+              <button onclick="document.querySelector('[data-view=\'optimizer\']').click()" class="btn-primary" style="width: 100%; text-align: center;">
+                Send to Resource Optimizer ▶
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 6: MULTI-OBJECTIVE RESOURCE OPTIMIZER -->
+        <!-- ========================================== -->
+        <section id="view-optimizer" class="view-section" style="display: none;">
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  Multi-Objective Constrained Resource Optimizer
+                </h2>
+                <p class="card-subtitle">Mixed-Integer Linear Programming (MILP) solving bed triage, nurse rosters, and equipment safety</p>
+              </div>
+              <button id="btn-run-optimizer" class="btn-primary">
+                <span>Re-Solve Allocation</span>
+              </button>
+            </div>
+
+            <div class="grid-cols-4">
+              <div class="stat-box">
+                <div class="stat-label">Solver Status</div>
+                <div style="font-size: 16px; font-weight: 800; color: #15803d; font-family: var(--font-mono);">OPTIMAL FEASIBLE</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Recovered Capacity</div>
+                <div id="opt-recovered-beds" class="stat-value" style="color: #0284c7;">+4 Beds</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Risk Overload Mitigation</div>
+                <div id="opt-risk-reduction" class="stat-value" style="color: #15803d;">75.5%</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Safety Bounds</div>
+                <div style="font-size: 16px; font-weight: 800; color: #15803d; font-family: var(--font-mono);">100% Compliant</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-cols-2-1">
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Prioritized Decision Support Recommendations</h3>
+                <span class="badge badge-stable">Constrained Actions</span>
+              </div>
+              <div id="optimizer-actions-list">
+                <!-- Populated dynamically by optimizer.js -->
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <div class="card-header">
+                <h3 class="card-title">Clinical Safety Constraints</h3>
+                <span class="badge badge-obs">Hard Bounds</span>
+              </div>
+
+              <ul id="opt-constraints-list" style="list-style: none; font-size: 12.5px; color: #334155; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                <!-- Populated by JS -->
+              </ul>
+
+              <div style="padding: 14px; border-radius: var(--radius-sm); background: #f8fafc; border: 1px solid #e2e8ed;">
+                <div style="font-weight: 700; font-size: 12px; color: #475569; margin-bottom: 4px;">OPERATIONAL GOVERNANCE</div>
+                <p style="font-size: 11.5px; color: #64748b; line-height: 1.5;">
+                  The CareGraph optimizer presents candidate allocations with uncertainty estimations. Bed transfers and surgical postponements require clinical sign-off from the attending medical director.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Interactive Judge Walkthrough Modal -->
+    <div id="judge-modal" class="judge-modal-overlay">
+      <div class="judge-modal-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="care-cross-logo" style="width: 32px; height: 32px;">
+              <span class="petal petal-1"></span>
+              <span class="petal petal-2"></span>
+              <span class="petal petal-3"></span>
+              <span class="petal petal-4"></span>
+            </div>
+            <h3 style="font-size: 20px; font-weight: 800; color: #111827;">CareGraph Judge Interactive Tour</h3>
+          </div>
+          <button id="judge-btn-close" style="background: transparent; border: none; color: #64748b; font-size: 22px; cursor: pointer;">✕</button>
         </div>
 
-        <!-- Simulation Findings -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Scenario Impact Summary</h3>
-            <span class="badge badge-sim">What-If Discovery</span>
-          </div>
-
-          <div style="margin-bottom: 16px;">
-            <div class="stat-label">Peak ICU Demand</div>
-            <div id="sim-peak-val" class="stat-value" style="color: #f87171;">25 / 20</div>
-          </div>
-
-          <div style="margin-bottom: 16px;">
-            <div class="stat-label">Projected Critical Bed Deficit</div>
-            <div id="sim-deficit-val" class="stat-value" style="color: #ef4444;">5 Beds</div>
-          </div>
-
-          <div style="padding: 12px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); margin-bottom: 16px;">
-            <div style="font-weight: 700; font-size: 12px; color: #f87171; margin-bottom: 4px;">CRITICAL SYSTEM STRESS</div>
-            <p id="sim-summary-text" style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-              Simulated demand exceeds operational limit at T+4.5h. 5 patients face diversion or delayed critical resuscitation without proactive reallocation.
-            </p>
-          </div>
-
-          <button onclick="document.querySelector('[data-view=\'optimizer\']').click()" class="btn-primary" style="width: 100%; text-align: center;">
-            Send to Resource Optimizer ▶
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 6: MULTI-OBJECTIVE RESOURCE OPTIMIZER -->
-    <section id="view-optimizer" class="view-section" style="display: none;">
-      <!-- Optimization Header -->
-      <div class="glass-card" style="margin-bottom: 20px;">
-        <div class="card-header">
-          <div>
-            <h2 class="card-title" style="font-size: 16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              Multi-Objective Constrained Resource Optimizer
-            </h2>
-            <p class="card-subtitle">Mixed-Integer Linear Programming (MILP) solving bed triage, nurse rosters, and equipment allocation</p>
-          </div>
-          <button id="btn-run-optimizer" class="btn-primary">
-            <span>Re-Solve Allocation</span>
-          </button>
+        <div class="judge-step-indicator">
+          <div class="step-circle active">1</div>
+          <div class="step-circle">2</div>
+          <div class="step-circle">3</div>
+          <div class="step-circle">4</div>
+          <div class="step-circle">5</div>
         </div>
 
-        <div class="grid-cols-4" style="margin-bottom: 0;">
-          <div class="stat-box">
-            <div class="stat-label">Solver Status</div>
-            <div style="font-size: 16px; font-weight: 800; color: #34d399; font-family: var(--font-mono);">OPTIMAL FEASIBLE</div>
+        <div class="dialogue-card">
+          <div class="dialogue-q">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span id="judge-q-text">Which patient needs attention?</span>
           </div>
-          <div class="stat-box">
-            <div class="stat-label">Recovered ICU Capacity</div>
-            <div id="opt-recovered-beds" class="stat-value" style="color: #38bdf8;">+4 Beds</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Risk Overload Mitigation</div>
-            <div id="opt-risk-reduction" class="stat-value" style="color: #34d399;">75.5%</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Clinical Safety Bounds</div>
-            <div style="font-size: 16px; font-weight: 800; color: #34d399; font-family: var(--font-mono);">100% Compliant</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Actionable Plans Grid -->
-      <div class="grid-cols-2-1">
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Prioritized Decision Support Recommendations</h3>
-            <span class="badge badge-stable">Constrained Actions</span>
-          </div>
-
-          <div id="optimizer-actions-list">
-            <!-- Populated dynamically by optimizer.js -->
+          <div class="dialogue-a" id="judge-a-text">
+            Patient B shows an elevated predicted deterioration trajectory reaching 91% risk at 12–24h.
           </div>
         </div>
 
-        <!-- Constraints Verification -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">Clinical Safety Constraints</h3>
-            <span class="badge badge-obs">Hard Bounds</span>
-          </div>
-
-          <ul id="opt-constraints-list" style="list-style: none; font-size: 12px; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-            <!-- Populated by JS -->
-          </ul>
-
-          <div style="padding: 12px; border-radius: 8px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2);">
-            <div style="font-weight: 700; font-size: 11px; color: #a5b4fc; margin-bottom: 4px;">OPERATIONAL GOVERNANCE</div>
-            <p style="font-size: 11px; color: #94a3b8; line-height: 1.5;">
-              The CareGraph optimizer presents candidate allocations with uncertainty estimations. Bed transfers and surgical postponements require clinical sign-off from the attending medical director.
-            </p>
-          </div>
+        <div style="font-size: 12.5px; color: #7c3aed; font-style: italic; margin-bottom: 20px;" id="judge-note-text">
+          Notice the widening 90% conformal prediction confidence interval band.
         </div>
-      </div>
-    </section>
 
-  </main>
-
-  <!-- Interactive Judge Walkthrough Modal (5-Step Hackathon Demonstration) -->
-  <div id="judge-modal" class="judge-modal-overlay">
-    <div class="judge-modal-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <div class="brand-logo" style="width: 28px; height: 28px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">CareGraph Judge Interactive Tour</h3>
+        <div class="judge-nav-btns">
+          <button id="judge-btn-prev" class="btn-secondary">◀ Previous Step</button>
+          <button id="judge-btn-next" class="btn-primary">Next Step ▶</button>
         </div>
-        <button id="judge-btn-close" style="background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
-      </div>
-
-      <!-- Step Indicator -->
-      <div class="judge-step-indicator">
-        <div class="step-circle active">1</div>
-        <div class="step-circle">2</div>
-        <div class="step-circle">3</div>
-        <div class="step-circle">4</div>
-        <div class="step-circle">5</div>
-      </div>
-
-      <!-- Dialogue -->
-      <div class="dialogue-card">
-        <div class="dialogue-q">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span id="judge-q-text">Which patient needs attention?</span>
-        </div>
-        <div class="dialogue-a" id="judge-a-text">
-          Patient B shows an elevated predicted deterioration trajectory.
-        </div>
-      </div>
-
-      <div style="font-size: 12px; color: #c084fc; font-style: italic; margin-bottom: 16px;" id="judge-note-text">
-        Notice the widening 90% conformal prediction confidence interval band.
-      </div>
-
-      <!-- Nav Buttons -->
-      <div class="judge-nav-btns">
-        <button id="judge-btn-prev" class="btn-secondary">◀ Previous Step</button>
-        <button id="judge-btn-next" class="btn-primary">Next Step ▶</button>
       </div>
     </div>
-  </div>
 
-  <!-- Disclaimer Footer -->
-  <footer class="footer-disclaimer">
-    <p>
-      CareGraph is an AI hospital digital twin and clinical decision-support prototype developed for <b>VJ Hackathon 2026</b>.<br>
-      Not an autonomous medical device. All clinical triage and medication decisions remain strictly the responsibility of licensed clinical staff.
-    </p>
-  </footer>
+    <!-- Footer Disclaimer -->
+    <footer class="footer-disclaimer">
+      <p>
+        CareGraph is an AI hospital digital twin and clinical decision-support prototype developed for <b>VJ Hackathon 2026</b>.<br>
+        Investigational decision support only. All clinical triage and medication orders remain strictly the responsibility of licensed medical staff.
+      </p>
+    </footer>
+
+  </div>
 
   <!-- Scripts -->
   <script src="js/data.js"></script>

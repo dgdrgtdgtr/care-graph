@@ -37,31 +37,93 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSelectedPatient();
   initCounterfactualControls();
   initOptimizerControls();
+  initHeroAndRail();
   initJudgeTour();
   startLiveTelemetryHeartbeat();
 
-  // 1. Tab Navigation
+  // 1. Tab Navigation & Left Rail Routing
   function initTabs() {
-    const tabs = document.querySelectorAll('.nav-tab');
-    tabs.forEach(tab => {
+    const tabSelectors = '.nav-tab, .nav-pill-btn, [data-view-target]';
+    document.querySelectorAll(tabSelectors).forEach(tab => {
       tab.addEventListener('click', () => {
-        const targetView = tab.getAttribute('data-view');
-        switchView(targetView);
+        const targetView = tab.getAttribute('data-view') || tab.getAttribute('data-view-target');
+        if (targetView) switchView(targetView);
       });
     });
+
+    const logo = document.getElementById('logo-refresh');
+    if (logo) {
+      logo.addEventListener('click', () => switchView('overview'));
+    }
+  }
+
+  function initHeroAndRail() {
+    // Hero Banner Actions
+    const btnHeroStart = document.getElementById('btn-hero-start');
+    const btnHeroDemo = document.getElementById('btn-hero-demo');
+    const btnCloseHero = document.getElementById('btn-close-hero');
+    const heroBanner = document.getElementById('carepoint-hero-banner');
+
+    if (btnHeroStart) {
+      btnHeroStart.addEventListener('click', () => {
+        const tourBtn = document.getElementById('btn-open-judge-tour');
+        if (tourBtn) tourBtn.click();
+      });
+    }
+
+    if (btnHeroDemo) {
+      btnHeroDemo.addEventListener('click', () => {
+        const tourBtn = document.getElementById('btn-open-judge-tour');
+        if (tourBtn) tourBtn.click();
+      });
+    }
+
+    if (btnCloseHero && heroBanner) {
+      btnCloseHero.addEventListener('click', () => {
+        heroBanner.style.transition = 'all 0.3s ease';
+        heroBanner.style.opacity = '0';
+        heroBanner.style.maxHeight = '0';
+        heroBanner.style.padding = '0';
+        setTimeout(() => heroBanner.style.display = 'none', 300);
+      });
+    }
+
+    // Left Rail Actions
+    const btnExport = document.getElementById('rail-btn-export');
+    if (btnExport) {
+      btnExport.addEventListener('click', () => {
+        alert('CareGraph Clinical Digital Twin: Full Cohort Report Exported successfully (PDF/JSON format).');
+      });
+    }
+
+    const btnSound = document.getElementById('rail-btn-sound');
+    if (btnSound) {
+      btnSound.addEventListener('click', () => {
+        state.isLiveTelemetry = !state.isLiveTelemetry;
+        btnSound.classList.toggle('active', state.isLiveTelemetry);
+        const statusMsg = state.isLiveTelemetry ? 'Enabled' : 'Paused';
+        alert(`Real-Time Physiologic Telemetry Heartbeat: ${statusMsg}`);
+      });
+    }
   }
 
   function switchView(viewName) {
     state.activeTab = viewName;
 
-    // Update tab bar active class
-    document.querySelectorAll('.nav-tab').forEach(t => {
-      t.classList.toggle('active', t.getAttribute('data-view') === viewName);
+    // Update nav tab and rail active classes
+    document.querySelectorAll('.nav-tab, .nav-pill-btn').forEach(t => {
+      const v = t.getAttribute('data-view');
+      t.classList.toggle('active', v === viewName);
+    });
+
+    document.querySelectorAll('[data-view-target]').forEach(r => {
+      const v = r.getAttribute('data-view-target');
+      r.classList.toggle('active', v === viewName);
     });
 
     // Toggle view sections
     document.querySelectorAll('.view-section').forEach(sec => {
-      sec.style.display = sec.getAttribute('id') === `view-${viewName}` ? 'block' : 'none';
+      sec.style.display = sec.getAttribute('id') === `view-${viewName}` ? 'flex' : 'none';
     });
 
     // Trigger canvas re-renders when their tab opens

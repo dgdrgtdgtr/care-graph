@@ -181,9 +181,9 @@ class ClinicalKnowledgeGraph {
     ctx.clearRect(0, 0, w, h);
 
     // Draw background subtle grid dots
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-    for (let x = 20; x < w; x += 40) {
-      for (let y = 20; y < h; y += 40) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    for (let x = 20; x < w; x += 36) {
+      for (let y = 20; y < h; y += 36) {
         ctx.fillRect(x, y, 1.5, 1.5);
       }
     }
@@ -202,11 +202,11 @@ class ClinicalKnowledgeGraph {
       ctx.lineTo(tgt.x, tgt.y);
 
       if (isHighlighted) {
-        ctx.strokeStyle = '#c084fc';
+        ctx.strokeStyle = '#7c3aed';
         ctx.lineWidth = 2.5;
         ctx.setLineDash([]);
       } else {
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
         ctx.lineWidth = 1.2;
         ctx.setLineDash([3, 3]);
       }
@@ -217,8 +217,8 @@ class ClinicalKnowledgeGraph {
       if (isHighlighted && edge.label) {
         const midX = (src.x + tgt.x) / 2;
         const midY = (src.y + tgt.y) / 2;
-        ctx.font = '10px "Inter", sans-serif';
-        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 10px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#111827';
         ctx.textAlign = 'center';
         ctx.fillText(edge.label, midX, midY - 6);
       }
@@ -226,40 +226,40 @@ class ClinicalKnowledgeGraph {
 
     // 2. Draw Nodes
     for (let n of this.nodes) {
-      const color = this.categoryColors[n.group] || '#38bdf8';
+      const color = this.categoryColors[n.group] || '#0284c7';
       const isSelected = this.selectedNode && this.selectedNode.id === n.id;
       const isHover = this.hoverNode && this.hoverNode.id === n.id;
 
       // Glow halo
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.radius + (isSelected ? 10 : isHover ? 6 : 2), 0, Math.PI * 2);
-      ctx.fillStyle = isSelected ? `${color}44` : `${color}22`;
+      ctx.fillStyle = isSelected ? `${color}33` : `${color}15`;
       ctx.fill();
 
-      // Main Node Circle
+      // Main Node Circle (Pristine White Background)
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#0f172a';
+      ctx.fillStyle = '#ffffff';
       ctx.strokeStyle = color;
-      ctx.lineWidth = isSelected ? 3 : 2;
+      ctx.lineWidth = isSelected ? 3.5 : 2;
       ctx.fill();
       ctx.stroke();
 
       // Inner category dot
       ctx.beginPath();
-      ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, 5, 0, Math.PI * 2);
       ctx.fillStyle = color;
       ctx.fill();
 
       // Label below node
-      ctx.font = isSelected ? 'bold 11px "Inter", sans-serif' : '10px "Inter", sans-serif';
-      ctx.fillStyle = isSelected ? '#ffffff' : 'rgba(226, 232, 240, 0.9)';
+      ctx.font = isSelected ? 'bold 11.5px "Plus Jakarta Sans", sans-serif' : '600 11px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = isSelected ? '#111827' : '#334155';
       ctx.textAlign = 'center';
       ctx.fillText(n.label, n.x, n.y + n.radius + 14);
 
       // Node group badge
-      ctx.font = '9px "JetBrains Mono", monospace';
-      ctx.fillStyle = `${color}cc`;
+      ctx.font = '700 9px "JetBrains Mono", monospace';
+      ctx.fillStyle = color;
       ctx.fillText(n.group.toUpperCase(), n.x, n.y + n.radius + 26);
     }
   }

@@ -84,7 +84,7 @@ class TrajectoryChart {
     const riskToY = (risk) => pad.top + (1.0 - risk) * chartH;
 
     // Draw background grid
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.lineWidth = 1;
 
     // Horizontal risk grid lines (0%, 25%, 50%, 75%, 100%)
@@ -95,7 +95,7 @@ class TrajectoryChart {
       ctx.lineTo(w - pad.right, y);
       ctx.stroke();
 
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+      ctx.fillStyle = '#64748b';
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.textAlign = 'right';
       ctx.fillText(Math.round(r * 100) + '%', pad.left - 8, y + 3);
@@ -103,21 +103,21 @@ class TrajectoryChart {
 
     // Critical Threshold Band at 70% & 85%
     const yCrit = riskToY(0.85);
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.35)';
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(pad.left, yCrit);
     ctx.lineTo(w - pad.right, yCrit);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(239, 68, 68, 0.7)';
-    ctx.font = '9px "Inter", sans-serif';
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'right';
     ctx.fillText('CRITICAL RISK (>85%)', w - pad.right, yCrit - 4);
 
     // Vertical Divider for T=0 (Current Time)
     const xNow = hourToX(0);
-    ctx.strokeStyle = 'rgba(99, 102, 241, 0.6)';
+    ctx.strokeStyle = '#6366f1';
     ctx.setLineDash([3, 3]);
     ctx.beginPath();
     ctx.moveTo(xNow, pad.top);
@@ -126,18 +126,18 @@ class TrajectoryChart {
     ctx.setLineDash([]);
 
     // Shaded Past vs Future Background
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.4)';
+    ctx.fillStyle = 'rgba(241, 245, 249, 0.6)';
     ctx.fillRect(pad.left, pad.top, xNow - pad.left, chartH);
-    ctx.fillStyle = 'rgba(99, 102, 241, 0.04)';
+    ctx.fillStyle = 'rgba(143, 199, 206, 0.08)';
     ctx.fillRect(xNow, pad.top, w - pad.right - xNow, chartH);
 
     // Labels for Observed vs Forecast
-    ctx.font = '10px "Inter", sans-serif';
-    ctx.fillStyle = 'rgba(56, 189, 248, 0.8)';
+    ctx.font = '600 10px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#0284c7';
     ctx.textAlign = 'left';
     ctx.fillText('◀ OBSERVED (Past 24h)', pad.left + 8, pad.top + 14);
 
-    ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
+    ctx.fillStyle = '#7c3aed';
     ctx.textAlign = 'right';
     ctx.fillText('TEMPORAL AI FORECAST (+48h) ▶', w - pad.right - 8, pad.top + 14);
 
@@ -215,16 +215,16 @@ class TrajectoryChart {
 
       // Point circle
       ctx.beginPath();
-      ctx.arc(x, y, 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = isPast ? '#38bdf8' : '#e879f9';
-      ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 1.5;
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = isPast ? '#0284c7' : '#7c3aed';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
       ctx.fill();
       ctx.stroke();
 
       // X-axis label
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.8)';
-      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#64748b';
+      ctx.font = '600 10px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.fillText(p.label, x, h - pad.bottom + 16);
     }
