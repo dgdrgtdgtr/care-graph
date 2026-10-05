@@ -269,41 +269,6 @@ body {
   font-size: 10px;
 }
 
-/* Subtle organic preview card on the landing page teasing the dashboard */
-.landing-preview-bottom {
-  width: 100%;
-  max-width: 1180px;
-  margin: 50px auto 0 auto;
-  background: #eef3f6;
-  border-radius: 36px 36px 0 0;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-bottom: none;
-  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.05);
-  padding: 16px 20px 0 20px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 180px;
-  position: relative;
-  overflow: hidden;
-}
-.landing-preview-bottom:hover {
-  transform: translateY(-8px);
-  background: #e9f0f3;
-}
-.landing-preview-bottom::after {
-  content: 'Click anywhere to launch Hospital Twin';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(238, 243, 246, 0.4) 0%, rgba(225, 235, 239, 0.95) 90%);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 24px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #165b65;
-  letter-spacing: 0.02em;
-}
 
 .btn-back-landing {
   background: #ffffff;
@@ -354,80 +319,7 @@ body {
   flex-direction: column;
 }
 
-/* Browser Mockup Window Bar */
-.browser-chrome {
-  background: #e2e8ec;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #d4dde2;
-  user-select: none;
-}
 
-.browser-traffic-lights {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.traffic-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-.traffic-dot.red { background: #ff5f56; border: 1px solid #e0443e; }
-.traffic-dot.yellow { background: #ffbd2e; border: 1px solid #dea123; }
-.traffic-dot.green { background: #27c93f; border: 1px solid #1aab29; }
-
-.browser-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #64748b;
-  margin-left: 14px;
-}
-
-.browser-btn {
-  background: transparent;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  transition: color 0.15s;
-}
-.browser-btn:hover { color: #1e293b; }
-
-.browser-address-bar {
-  flex: 1;
-  max-width: 480px;
-  background: #ffffff;
-  border-radius: var(--radius-pill);
-  padding: 6px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #475569;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-  margin: 0 16px;
-}
-
-.browser-address-bar svg {
-  color: #94a3b8;
-  flex-shrink: 0;
-}
-
-.browser-actions-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #64748b;
-}
 
 /* Hero Showcase Banner (CarePoint Inspiration) */
 .hero-banner {

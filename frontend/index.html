@@ -65,20 +65,6 @@
         </button>
       </div>
     </main>
-
-    <!-- Organic Preview Teaser of Hospital Twin at bottom (as in Image 3) -->
-    <div class="landing-preview-bottom" id="landing-preview-click" title="Click to launch Hospital Twin">
-      <div class="browser-chrome" style="border-radius: 20px 20px 0 0; background: #e0e7ec;">
-        <div class="browser-traffic-lights">
-          <span class="traffic-dot red"></span>
-          <span class="traffic-dot yellow"></span>
-          <span class="traffic-dot green"></span>
-        </div>
-        <div class="browser-address-bar" style="max-width: 380px;">
-          <span>https://www.caregraph.health/digital-twin</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- ==================================================== -->
@@ -88,39 +74,6 @@
 
     <!-- Outer Desktop / Tablet Mockup Window -->
     <div class="desktop-wrapper">
-
-      <!-- Browser Mockup Chrome Header -->
-      <header class="browser-chrome">
-        <div class="browser-traffic-lights">
-          <span class="traffic-dot red" title="Close" id="browser-dot-close"></span>
-          <span class="traffic-dot yellow" title="Minimize"></span>
-          <span class="traffic-dot green" title="Expand"></span>
-          <div class="browser-controls">
-            <button class="btn-back-landing" id="btn-back-to-landing" title="Return to Landing Page">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Landing</span>
-            </button>
-            <button class="browser-btn" title="Back">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="browser-btn" title="Forward">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="browser-address-bar">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>https://www.caregraph.health/digital-twin</span>
-          <svg width="13" height="13" style="margin-left: auto; cursor: pointer;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        </div>
-
-        <div class="browser-actions-right">
-          <button class="browser-btn" title="Share"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
-          <button class="browser-btn" title="Add Tab"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          <button class="browser-btn" title="Tabs Overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-        </div>
-      </header>
 
       <!-- App Main Layout (Left Rail + Content) -->
       <div class="app-layout">
@@ -169,7 +122,11 @@
           <header class="topbar">
             <!-- Brand Logo & Title -->
             <div class="brand-section">
-              <div class="care-cross-logo" id="logo-refresh" title="CareGraph Digital Twin (Click to return to Landing)">
+              <button class="btn-back-landing" id="btn-back-to-landing" title="Return to Landing Page">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Landing</span>
+              </button>
+              <div class="care-cross-logo" id="logo-refresh" title="CareGraph Digital Twin">
                 <span class="petal petal-1"></span>
                 <span class="petal petal-2"></span>
                 <span class="petal petal-3"></span>
