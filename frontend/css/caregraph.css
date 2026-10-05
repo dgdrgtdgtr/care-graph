@@ -65,9 +65,264 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding: 24px 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* ==================================================== */
+/* PAGE 1: DEDICATED FIRST PAGE LANDING VIEW */
+/* ==================================================== */
+#landing-page-view {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f8fbfd 0%, #edf4f7 55%, #e1ebef 100%);
+  position: relative;
+  overflow-x: hidden;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+#hospital-twin-view {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
+  padding: 24px 20px;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.landing-nav-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+/* CarePoint / CareGraph Bar Icon */
+.landing-bar-icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 3.5px;
+  height: 24px;
+}
+.landing-bar-icon span {
+  width: 5px;
+  border-radius: 3px;
+  background: #11535c;
+}
+.landing-bar-icon span:nth-child(1) { height: 14px; background: #11535c; }
+.landing-bar-icon span:nth-child(2) { height: 24px; background: #1f7d8c; }
+.landing-bar-icon span:nth-child(3) { height: 18px; background: #4ba6b5; }
+
+.landing-brand-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+.landing-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  list-style: none;
+}
+
+.landing-nav-item {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4b5563;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.landing-nav-item:hover {
+  color: #111827;
+}
+
+.landing-hero-center {
+  flex: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 70px 24px 30px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-hero-title {
+  font-size: 58px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  max-width: 860px;
+  margin-bottom: 24px;
+}
+
+.landing-hero-title .teal-highlight {
+  color: #145963;
+  background: linear-gradient(135deg, #134e56 0%, #208391 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.landing-hero-subtitle {
+  font-size: 17.5px;
+  font-weight: 500;
+  color: #64748b;
+  max-width: 720px;
+  margin: 0 auto 38px auto;
+  line-height: 1.65;
+}
+
+.landing-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.btn-landing-get-started {
+  background: var(--accent-black);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(17, 22, 24, 0.2);
+}
+.btn-landing-get-started:hover {
+  background: var(--accent-black-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(17, 22, 24, 0.3);
+}
+
+.btn-landing-get-started .arrow-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  color: var(--accent-teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.btn-landing-watch-demo {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #d4dde2;
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.btn-landing-watch-demo:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.btn-landing-watch-demo .play-bubble {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-black);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+/* Subtle organic preview card on the landing page teasing the dashboard */
+.landing-preview-bottom {
+  width: 100%;
+  max-width: 1180px;
+  margin: 50px auto 0 auto;
+  background: #eef3f6;
+  border-radius: 36px 36px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom: none;
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.05);
+  padding: 16px 20px 0 20px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+.landing-preview-bottom:hover {
+  transform: translateY(-8px);
+  background: #e9f0f3;
+}
+.landing-preview-bottom::after {
+  content: 'Click anywhere to launch Hospital Twin';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(238, 243, 246, 0.4) 0%, rgba(225, 235, 239, 0.95) 90%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #165b65;
+  letter-spacing: 0.02em;
+}
+
+.btn-back-landing {
+  background: #ffffff;
+  border: 1px solid #d4dde2;
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.btn-back-landing:hover {
+  background: #f8fafc;
+  color: #111827;
+  border-color: #cbd5e1;
 }
 
 /* Scrollbar */

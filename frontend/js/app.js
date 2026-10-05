@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const optimizer = new ResourceOptimizer();
 
   // Initialize UI
+  initLandingPage();
   initTabs();
   initPatientSelector();
   initHospitalOverview();
@@ -41,6 +42,66 @@ document.addEventListener('DOMContentLoaded', () => {
   initJudgeTour();
   startLiveTelemetryHeartbeat();
 
+  // 0. Landing Page to Hospital Twin Transitions
+  function initLandingPage() {
+    const landingView = document.getElementById('landing-page-view');
+    const twinView = document.getElementById('hospital-twin-view');
+
+    const btnStartHero = document.getElementById('btn-landing-get-started');
+    const btnStartNav = document.getElementById('btn-nav-get-started');
+    const btnDemo = document.getElementById('btn-landing-watch-demo');
+    const previewClick = document.getElementById('landing-preview-click');
+    const btnBack = document.getElementById('btn-back-to-landing');
+    const closeDot = document.getElementById('browser-dot-close');
+    const logoRefresh = document.getElementById('logo-refresh');
+
+    function openHospitalTwin(withTour = false) {
+      if (landingView) landingView.style.display = 'none';
+      if (twinView) {
+        twinView.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      switchView('overview');
+
+      if (withTour) {
+        setTimeout(() => {
+          const btnTour = document.getElementById('btn-open-judge-tour');
+          if (btnTour) btnTour.click();
+        }, 350);
+      }
+    }
+
+    function openLandingPage() {
+      if (twinView) twinView.style.display = 'none';
+      if (landingView) {
+        landingView.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    if (btnStartHero) btnStartHero.addEventListener('click', () => openHospitalTwin(false));
+    if (btnStartNav) btnStartNav.addEventListener('click', () => openHospitalTwin(false));
+    if (previewClick) previewClick.addEventListener('click', () => openHospitalTwin(false));
+    if (btnDemo) btnDemo.addEventListener('click', () => openHospitalTwin(true));
+
+    if (btnBack) btnBack.addEventListener('click', openLandingPage);
+    if (closeDot) closeDot.addEventListener('click', openLandingPage);
+    if (logoRefresh) logoRefresh.addEventListener('click', openLandingPage);
+
+    // Nav links also route to twin
+    ['product', 'service', 'activity', 'support'].forEach(id => {
+      const el = document.getElementById(`nav-item-${id}`);
+      if (el) {
+        el.addEventListener('click', () => openHospitalTwin(false));
+      }
+    });
+
+    // Check if URL hash requests direct twin view
+    if (window.location.hash === '#twin' || window.location.hash === '#dashboard') {
+      openHospitalTwin(false);
+    }
+  }
+
   // 1. Tab Navigation & Left Rail Routing
   function initTabs() {
     const tabSelectors = '.nav-tab, .nav-pill-btn, [data-view-target]';
@@ -50,11 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetView) switchView(targetView);
       });
     });
-
-    const logo = document.getElementById('logo-refresh');
-    if (logo) {
-      logo.addEventListener('click', () => switchView('overview'));
-    }
   }
 
   function initHeroAndRail() {
